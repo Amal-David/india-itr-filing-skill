@@ -47,5 +47,7 @@ Do not submit until every applicable item is checked.
 
 - [ ] Taxpayer reviewed the preview PDF/JSON
 - [ ] All unresolved assumptions are listed
-- [ ] Taxpayer explicitly approved declaration/submission
-- [ ] Taxpayer performs or directly controls OTP and e-verification
+- [ ] Every evidence-register row maps to a preview field or a documented non-reporting conclusion
+- [ ] Total income, special-rate income, tax, credits, interest/fee, and refund/payable are recomputed from the supported figures
+- [ ] Every material unresolved item is resolved or handed to the appropriate professional
+- [ ] Taxpayer personally controls declaration, payment, submission, upload, OTP, and e-verification

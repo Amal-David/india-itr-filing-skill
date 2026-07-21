@@ -5,7 +5,7 @@
 - Reconcile Form 16 Part B with Schedule Salary.
 - Distinguish gross salary from “income chargeable under salaries” shown in TDS records.
 - Choose the correct nature of employer.
-- If the portal creates a zero-value row for perquisites or profit in lieu of salary, either select the truthful nature and description or delete the unused row. Do not invent a benefit merely to clear validation.
+- If the portal creates a zero-value row for perquisites or profit in lieu of salary, delete the unused row when possible. If the portal requires a category despite no supported item, do not invent a benefit or neutral fiction; preserve the error and seek official support or professional review.
 - Apply the assessment-year standard deduction automatically allowed by the selected regime and form; verify the current amount.
 
 ## Other sources
@@ -33,11 +33,11 @@ Schedule FA is a disclosure schedule, not merely a tax calculation. Determine wh
 
 For foreign shares or financial interests:
 
-- disclose legal ownership accurately as direct owner, beneficial owner, or beneficiary according to the definitions;
+- disclose legal ownership, beneficial ownership, or beneficiary status using the exact current form definitions;
 - report acquisition date, initial value, peak value, closing value, income, and sale proceeds from source records;
 - use the prescribed currency-conversion method for the relevant field and year; retain the rate source;
 - reconcile the acquired, transferred, and closing share counts;
-- complete both the unlisted-equity disclosure and Schedule FA sections when both apply;
+- assess unlisted-equity and Schedule FA requirements independently and complete each only when its current instructions apply;
 - answer the foreign-asset question in the tax computation consistently with Schedule FA.
 
 A gift from a qualifying relative may be exempt from receipt taxation, but that does not remove foreign-asset disclosure. Foreign company shares are securities, not virtual digital assets.
@@ -54,6 +54,8 @@ Use Schedule VDA only for an actual virtual digital asset transfer. For each tra
 - TDS and exchange statement.
 
 Do not invent an acquisition date or cost from an AIS summary. If a small unfamiliar VDA line appears, first identify the reporting exchange or deductor and obtain the transaction ledger. VDA losses have special restrictions and must not be set off as ordinary capital or business losses.
+
+An exchange name, rewards label, unfamiliar product name, or section 194S entry does not by itself establish the asset, acquisition, transfer, cost, or tax head. Mark it `unknown-transaction` until the ledger identifies the event.
 
 ## Taxes paid
 

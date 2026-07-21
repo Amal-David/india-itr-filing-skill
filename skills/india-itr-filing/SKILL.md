@@ -1,114 +1,166 @@
 ---
 name: india-itr-filing
-description: Prepare, reconcile, review, and troubleshoot Indian individual income-tax returns on the official e-Filing portal. Use for ITR form and regime selection, AIS/TIS/Form 26AS/Form 16 reconciliation, salary, presumptive professional income under 44ADA, capital gains, trading, VDA, foreign assets, tax credits, portal validation errors, preview review, and lawful refund optimization. Never use it to conceal income, fabricate deductions, or submit without the taxpayer's final review.
+description: Assist with preparing, reconciling, reviewing, and troubleshooting Indian individual income-tax returns using an adaptive filer profile. Use for salary-only, salary plus investments, freelance or professional income, section 44ADA, investors, intraday or F&O traders, property, VDA, foreign assets, unlisted shares, tax credits, portal validation, and final preview review. Never conceal income, fabricate evidence, or perform the taxpayer's declaration, payment, submission, or verification.
 ---
 
 # India ITR Filing
 
-Guide an Indian individual taxpayer from evidence collection to a reconciled draft return. Optimize only within the law, keep current-year rules source-backed, and preserve a human confirmation boundary before payment, declaration, submission, or e-verification.
+Assist an Indian individual taxpayer in organizing source evidence, deriving the applicable ITR workflow, preparing a reconciled draft, and understanding portal validation errors. This skill is a filing aid, not a Chartered Accountant, advocate, authorized representative, RBI/FEMA adviser, certification, legal opinion, or refund guarantee.
+
+The taxpayer remains responsible for facts, declarations, payment, verification, and submission. Require source files such as Form 16, AIS/TIS, Form 26AS, bank-interest records, invoices or receipt ledgers, broker and AMC reports, tax challans, property records, VDA ledgers, and foreign-asset records when applicable. Do not infer a claim or classification from a screenshot or portal prefill alone.
 
 ## Non-negotiable safeguards
 
-1. Use only official Income Tax Department surfaces for filing and tax-rule verification. Use broker, bank, employer, registrar, or AMC documents only as transaction evidence.
-2. Treat tax rates, thresholds, due dates, return schemas, and portal labels as assessment-year-specific. Verify them for the selected assessment year before giving a definitive answer.
-3. Never request, read aloud, store, or repeat PAN, Aadhaar, passwords, OTPs, full bank numbers, or complete addresses. Let the taxpayer enter secrets directly.
-4. Never manufacture a refund by omitting income, inventing losses, changing dates, or forcing portal fields to accept economically false values.
-5. Keep the return as a draft until the generated preview is reconciled against the source documents.
-6. Stop before declaration, tax payment, submission, and e-verification. State what will happen and obtain explicit taxpayer approval.
-7. When facts are ambiguous or source records conflict, identify the conflict and request the missing record. Do not average or guess.
+1. Verify assessment-year-specific rules, return forms, utilities, schemas, thresholds, and due dates from current official sources.
+2. Never request or retain passwords, OTPs, Aadhaar, full PAN, complete bank or card numbers, signatures, biometrics, or unredacted identity documents. Let the taxpayer enter secrets directly.
+3. Never manufacture a refund by omitting income, inventing losses or deductions, changing dates, or forcing fields to accept economically false values.
+4. Treat portal prefill and AIS as reconciliation leads, not conclusive evidence.
+5. Mark every material item `confirmed`, `prefilled-only`, `derived`, `unresolved`, `unknown`, or `blocked`.
+6. Do not sign, declare, pay, submit, upload, e-verify, file Form 10-IEA, change a refund account, accept an adjustment, or respond to a notice for the taxpayer.
+7. Keep the return in draft until the preview is reconciled to the evidence register and all material uncertainties are resolved.
+8. Escalate instead of guessing when facts, source records, law, tax classification, valuation, residency, or FEMA treatment are uncertain.
 
-## Workflow
+## Adaptive workflow
 
-### 1. Establish scope
+### 1. Run the front-door intake
 
-Confirm the assessment year, residential status, filing status, age category, income heads, business/profession status, audit exposure, regime history, and whether any foreign asset or income existed during the applicable disclosure period.
+Ask the short multi-select questionnaire in [intake-and-routing.md](references/intake-and-routing.md). Determine:
 
-Use [form-and-regime.md](references/form-and-regime.md) for the form and regime decision. Do not assume that a low-value transaction is immaterial to form eligibility or disclosure.
+- filing context: FY/AY, original/revised/belated/updated/notice-response return;
+- residential status and uncertainty;
+- all income, asset, transaction, and loss categories that occurred;
+- records available and records still missing;
+- prior regime/Form 10-IEA and loss-carry-forward history;
+- whether any mandatory specialist-review trigger exists.
 
-### 2. Build the evidence register
+Do not ask the taxpayer to choose a single persona or ITR form. Assign one primary route plus every applicable modifier. A small transaction can still change form eligibility or disclosure obligations.
 
-Create a checklist with one row per source:
+Primary routes:
 
-- Identity and bank: masked identifiers, validated refund account, prior acknowledgement.
-- Salary: Form 16 Part A and Part B, payslips, termination/arrears details.
-- Tax records: AIS, TIS, Form 26AS, TDS/TCS certificates, challans.
-- Banking: savings interest, deposit interest, income-tax refund interest.
-- Profession/business: invoices, receipt ledger, bank credits, foreign remittance advice, GST/FIRC records where applicable.
-- Securities: broker tax P&L, contract notes, mutual-fund capital-gains statement, CAS, transaction ledger.
-- Property: ownership, possession/completion, rent, home-loan interest certificate, principal statement, property-purchase TDS records.
-- Foreign assets/income: acquisition documents, ownership records, peak/closing values, income, sale proceeds, exchange-rate evidence.
-- VDA: exchange ledger with acquisition date, transfer date, cost, consideration, TDS, and asset identity.
+- `salary-essential`
+- `salary-investor`
+- `professional-44ada-candidate`
+- `professional-regular`
+- `investor`
+- `trader`
+- `property`
+- `foreign-cross-border`
+- `complex-composite`
 
-Record whether each value is confirmed, prefilled, derived, or unresolved. Prefer exact source records over screenshots of summary totals.
+Modifiers include `multiple-employers`, `capital-gains`, `intraday`, `fno`, `vda`, `property`, `foreign-asset-or-income`, `unlisted-equity`, `director-or-partner`, `brought-forward-loss`, `tax-credit`, `notice-or-late-return`, and `unknown-transaction`.
 
-### 3. Reconcile before entering
+Use the optional local classifier for a deterministic first pass:
 
-Reconcile AIS/TIS/Form 26AS with the evidence register. A prefilled figure is a lead, not proof. Resolve differences such as:
+```bash
+python3 scripts/classify_case.py case-profile.json
+```
 
-- gross salary versus income chargeable under salaries;
-- redemption proceeds versus taxable capital gain;
-- tax deducted versus income amount;
-- refund amount versus taxable refund interest;
-- total bank credits versus professional gross receipts;
-- trade turnover versus profit or loss;
-- foreign-share quantity acquired versus closing quantity.
+The classifier is a routing aid, not a tax determination.
 
-Use [income-schedules.md](references/income-schedules.md) for schedule routing and [securities-and-trading.md](references/securities-and-trading.md) for investment and trading rules.
+### 2. Apply the risk and escalation gate
 
-### 4. Enter the return schedule by schedule
+Use [risk-and-escalation.md](references/risk-and-escalation.md). Continue with ordinary draft assistance only when the evidence and classification are supportable.
 
-Enter general information first, then source schedules, loss set-off schedules, deductions, tax paid, foreign assets, and computation schedules. Avoid entering the same item under two heads.
+Mandatory professional review includes disputed or uncertain residency; audit or books questions; notices; foreign assets, foreign gifts, ODI/LRS or pending AD-bank matters; treaty or foreign-tax credit; missing VDA basis; unsupported prior losses; property ownership or possession disputes; unlisted-share valuation; and irreconcilable AIS, Form 26AS, broker, employer, or bank records.
 
-For portal-specific traps and validation messages, use [portal-troubleshooting.md](references/portal-troubleshooting.md).
+### 3. Build a minimum evidence pack
 
-### 5. Reconcile the generated preview
+Use [document-intake-and-privacy.md](references/document-intake-and-privacy.md). Request only the documents needed for the selected routes and modifiers. Assign neutral document IDs such as `DOC-001`; do not copy original filenames, taxpayer identifiers, or private values into notes, examples, issues, commits, or public artifacts.
 
-Download the preview PDF or JSON and independently check:
+Create an evidence register with one row per source: document ID, period, source type, tax fields derived, source locator, status, and unresolved questions.
 
-- filing section, regime, residential status, and return form;
-- every income head and special-rate schedule;
-- gross receipts and presumptive income;
-- capital gains and transaction-date buckets;
-- current-year and brought-forward loss treatment;
-- foreign asset, unlisted-share, and VDA disclosures;
-- TDS, TCS, advance tax, self-assessment tax, and refund account;
-- total income, tax, interest, fee, payable amount, or refund.
+### 4. Derive form, regime, and schedule map
 
-Use [preview-checklist.md](references/preview-checklist.md). A small refund or a successful portal validation does not prove completeness.
+Use [form-and-regime.md](references/form-and-regime.md). Produce an eligibility trace rather than a bare answer:
 
-### 6. Hand off the final action
+- ITR-1 only if every current eligibility restriction passes.
+- ITR-2 when no business/profession exists but schedules outside ITR-1 are required.
+- ITR-3 when business/professional income exists, including intraday or F&O activity, unless the limited ITR-4 route fully applies.
+- ITR-4 only after every current eligibility condition passes; never use it merely because it is shorter.
 
-Summarize all entered figures by source, list unresolved assumptions, state the computed payable/refund, and ask the taxpayer to confirm. Leave OTP, declaration, submission, and e-verification to the taxpayer unless they explicitly authorize a final click after reviewing the preview.
+Run the Form 10-IEA branch only after establishing business/profession status. Compare regimes using the same complete income data and supported claims.
+
+### 5. Reconcile before portal entry
+
+Map each evidence item to its income head, schedule, tax credit, and status. Reconcile:
+
+- salary and salary TDS against Form 16 and Form 26AS;
+- professional gross receipts against invoices, receipt ledger, and bank/remittance evidence;
+- redemption proceeds against lot-level capital gain;
+- intraday, eligible F&O, and delivery activity in separate lanes;
+- VDA transfers against transaction-level exchange evidence;
+- foreign assets and income against ownership, valuation, income, and conversion records;
+- prior losses against filed ITR acknowledgements and schedules;
+- TDS/TCS/challans against the related income and tax-credit records.
+
+Use [income-schedules.md](references/income-schedules.md), [securities-and-trading.md](references/securities-and-trading.md), and [tax-and-fema.md](references/tax-and-fema.md).
+
+### 6. Enter in dependency order
+
+Use the current official portal or utility for the exact AY. Enter and validate in clusters:
+
+1. Part A General, filing status, residential status, business/profession status, and regime history.
+2. Salary, house property, business/profession, P&L, presumptive income, and trading.
+3. Capital gains, VDA, other sources, and foreign disclosures.
+4. CYLA, BFLA, CFL, deductions, and tax paid.
+5. Unlisted shares, Schedule FA/FSI/TR when applicable, and Part B-TI/TTI.
+
+Save, return to the summary, reopen to verify persistence, and validate after each cluster. Use [portal-troubleshooting.md](references/portal-troubleshooting.md) for exact error families and cross-schedule invariants.
+
+### 7. Reconcile the generated preview
+
+Download the preview PDF and preserve a redacted evidence-to-preview reconciliation. A downloaded JSON, successful validation, low demand, or refund does not prove completeness.
+
+Use [preview-checklist.md](references/preview-checklist.md) to review every income head, special-rate amount, loss, disclosure, deduction, tax credit, interest/fee, and refund/payable result.
+
+### 8. Produce a taxpayer or adviser handoff
+
+Summarize:
+
+- selected routes, modifiers, form and regime hypothesis;
+- source documents used and missing;
+- confirmed, derived, and unresolved figures;
+- portal validations resolved and remaining;
+- the preview result and an explicit list of assumptions;
+- every specialist-review trigger.
+
+Then stop. The taxpayer personally reviews the preview and controls declaration, payment, submission, and verification.
 
 ## Response style
 
-- Lead with the exact portal choice or correction.
-- Give the source and assessment-year context for any rule that affects tax or eligibility.
-- Separate confirmed facts from provisional calculations.
-- Say “do not submit yet” whenever a material reconciliation item remains open.
-- Prefer a short field-by-field answer when the taxpayer shares a portal screen.
+- Use plain English first and the tax label second.
+- Lead with the exact portal field or decision being addressed.
+- State the AY and source behind any rule affecting tax or eligibility.
+- Separate supported facts from provisional calculations.
+- Say `do not submit yet` whenever a material item is unresolved.
+- Never call a result “optimized,” “eligible,” “complete,” or “correct” without identifying the evidence and assumptions supporting it.
 
 ## Reference routing
 
-- Form selection, old/new regime, Form 10-IEA, 44ADA, rent, home-loan, and deductions: [form-and-regime.md](references/form-and-regime.md)
+- Adaptive questions, route composition, and document packs: [intake-and-routing.md](references/intake-and-routing.md)
+- Minimum disclosure, evidence manifest, redaction, and retention: [document-intake-and-privacy.md](references/document-intake-and-privacy.md)
+- Specialist-review triggers and stop conditions: [risk-and-escalation.md](references/risk-and-escalation.md)
+- Form selection, regimes, Form 10-IEA, 44ADA, rent, home loan, and deductions: [form-and-regime.md](references/form-and-regime.md)
 - Salary, other sources, profession, property, VDA, foreign assets, and tax credits: [income-schedules.md](references/income-schedules.md)
-- Mutual funds, listed securities, intraday, F&O, and losses: [securities-and-trading.md](references/securities-and-trading.md)
-- Portal validation errors and schedule dependencies: [portal-troubleshooting.md](references/portal-troubleshooting.md)
+- Mutual funds, listed securities, intraday, F&O, turnover, and losses: [securities-and-trading.md](references/securities-and-trading.md)
+- Income-tax disclosure versus FEMA/RBI/AD-bank compliance: [tax-and-fema.md](references/tax-and-fema.md)
+- Portal validation categories and schedule dependencies: [portal-troubleshooting.md](references/portal-troubleshooting.md)
 - Final PDF/JSON reconciliation: [preview-checklist.md](references/preview-checklist.md)
+- Synthetic route and safety scenarios: [scenario-matrix.md](references/scenario-matrix.md)
 - Official sources and freshness protocol: [official-sources.md](references/official-sources.md)
 
 ## Privacy validation
 
-Before publishing or sharing any artifact derived from a taxpayer interaction, run:
+Before sharing or publishing any artifact derived from taxpayer assistance, run:
 
 ```bash
 python3 scripts/privacy_scan.py <path>
 ```
 
-Pass additional private terms without writing them into the repository:
+Pass case-specific private terms at runtime without storing them in the repository:
 
 ```bash
-python3 scripts/privacy_scan.py <path> --deny "private term" --deny "another term"
+python3 scripts/privacy_scan.py <path> --deny "private term"
 ```
 
-Do not publish until the scanner passes and a manual review confirms that examples are synthetic.
+Do not publish until the scanner and a manual review confirm that all examples and tests are synthetic.

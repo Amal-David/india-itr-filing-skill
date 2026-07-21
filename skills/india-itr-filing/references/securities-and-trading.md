@@ -23,12 +23,35 @@
 
 ## Intraday and F&O turnover
 
-Trading turnover is not the gross contract value and is not necessarily the same as profit or loss. Prefer the broker's tax P&L turnover computed under the applicable professional guidance.
+Trading turnover is not gross contract value and is not necessarily profit or loss. Record the turnover method explicitly:
+
+- `broker-tax-pnl`: the broker supplies a tax-audit turnover figure and method;
+- `professional-recomputation`: a CA/tax professional recomputes it under current technical guidance;
+- `unresolved`: stop schedule completion.
+
+Keep turnover, gross profit, direct expenses, and net profit/loss as four independent figures.
 
 - Intraday equity activity is generally speculative business.
-- Eligible exchange-traded derivatives are generally non-speculative business.
+- Derivatives are non-speculative only when the exact transaction satisfies the current statutory eligible-exchange conditions; retain that evidence.
 - For derivatives, turnover commonly includes absolute favorable and unfavorable differences and other components required by current guidance; option premium treatment depends on the applicable method and reporting period.
 - Do not force a portal validation by converting a loss into positive income or setting turnover equal to profit.
 - If the broker report and portal fields cannot be reconciled economically, stop and obtain a computation from a tax professional.
 
 Portal P&L may require gross-profit and expense fields to express a loss. Preserve the economic result and verify that Schedule BP classifies it correctly.
+
+## Classification consistency
+
+Delivery holdings may be capital assets or stock-in-trade depending on facts and prior consistent treatment. Do not reclassify them opportunistically to improve the result.
+
+Maintain separate ledgers for:
+
+- delivery capital gains/losses;
+- speculative intraday business;
+- eligible non-speculative F&O business;
+- VDA transfers.
+
+Speculative, non-speculative business, short-term capital, long-term capital, and VDA losses each have different set-off and carry-forward rules. Preserve the loss character and require the filed prior ITR, acknowledgement, assessment year, filing date, and relevant schedule before claiming a brought-forward loss.
+
+## VDA identification gate
+
+Do not open Schedule VDA merely because AIS, a deductor, or a small credit suggests it. Identify the platform, asset, acquisition date, transfer date, consideration, cost, and section 194S evidence. A transaction-level VDA loss cannot reduce other income and cannot be carried forward under the VDA rules.

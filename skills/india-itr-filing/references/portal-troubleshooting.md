@@ -1,5 +1,7 @@
 # Portal troubleshooting
 
+Read the validation category, exact field name, and exact error text before changing data. Category A errors block upload; other categories may be warnings or claim restrictions. Portal validation is not evidence that the return is complete.
+
 ## Part A General says business income is absent
 
 If Schedule BP contains professional, speculative, or non-speculative business income or loss, answer “Yes” to the current-assessment-year business/profession question. Revisit the Form 10-IEA questions that appear after changing it.
@@ -22,6 +24,8 @@ The accrual/receipt table must equal the relevant capital-gain total. Allocate e
 
 Populate only the rows that correspond to the gain type. Do not distribute amounts evenly without transaction dates.
 
+Where Schedule VDA flows to Schedule CG C2, the corresponding Schedule CG Table F period buckets must sum exactly to C2 using actual transfer dates.
+
 ## Foreign asset validation
 
 - Complete Schedule FA before answering “Yes” to the foreign-asset question in Part B-TTI.
@@ -32,13 +36,19 @@ Populate only the rows that correspond to the gain type. Do not distribute amoun
 
 If “income cannot exceed turnover” appears, recheck whether the field expects gross profit, net profit, or an absolute-turnover figure. Use the broker report and the schedule definitions. Do not increase turnover arbitrarily.
 
+For the current ITR-3 schema, separately verify intraday income against intraday turnover and F&O income against F&O turnover. A validation inequality does not authorize using P&L as turnover or converting a loss into positive income.
+
 ## Missing schedule in the summary
 
-Use “Add More Schedules” when a required schedule was not selected. Common omissions include Schedule CG, Schedule 112A, Schedule FA, Schedule VDA, Schedule BP, and loss schedules.
+First pass the form-eligibility and evidence gate. Then use “Add More Schedules” when an evidence-supported required schedule was not selected. Common omissions include Schedule CG, Schedule 112A, Schedule FA, Schedule VDA, Schedule BP, and loss schedules.
 
 ## Portal state problems
 
 - Save each schedule and return to the summary before validation.
 - Reopen the schedule after changing a dependency because computed fields may be stale.
 - Regenerate the preview after every material correction.
-- If the online utility behaves inconsistently, download the JSON, preserve the draft, and compare with the current offline utility rather than repeatedly changing correct figures.
+- Archive the online Return Summary JSON and redacted error artifacts. Before attempting offline import, verify that the exact AY/form supports online-draft import. Never hand-edit return JSON. If unsupported, start a fresh offline draft from current prefilled data and reconcile it independently.
+
+## Validation repair rule
+
+Never zero, delete, duplicate, reclassify, or fabricate a real item merely to clear validation. Resolve one error family at a time, rerun validation, and keep a redacted change log. If the portal cannot represent the supported result, stop and escalate.

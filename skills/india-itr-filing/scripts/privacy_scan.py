@@ -19,7 +19,35 @@ PATTERNS = {
     "long account-like number": re.compile(r"(?<!\d)\d{11,18}(?!\d)"),
 }
 
-TEXT_SUFFIXES = {".md", ".txt", ".py", ".yaml", ".yml", ".json", ".toml"}
+TEXT_SUFFIXES = {
+    ".csv",
+    ".html",
+    ".js",
+    ".json",
+    ".md",
+    ".py",
+    ".sh",
+    ".toml",
+    ".ts",
+    ".txt",
+    ".xml",
+    ".yaml",
+    ".yml",
+}
+BINARY_SUFFIXES = {
+    ".7z",
+    ".gif",
+    ".heic",
+    ".jpeg",
+    ".jpg",
+    ".pdf",
+    ".png",
+    ".tar",
+    ".xls",
+    ".xlsb",
+    ".xlsx",
+    ".zip",
+}
 
 
 def iter_text_files(root: Path):
@@ -56,10 +84,21 @@ def main() -> int:
                 if literal in lowered:
                     findings.append((path, line_number, "deny-listed literal"))
 
+    for path in root.rglob("*"):
+        if (
+            path.is_file()
+            and path.suffix.lower() in BINARY_SUFFIXES
+            and ".git" not in path.parts
+        ):
+            findings.append((path, 0, "binary or archive requires manual privacy review"))
+
     if findings:
         print(f"privacy scan failed: {len(findings)} potential issue(s)")
         for path, line_number, label in findings:
-            print(f"- {path.relative_to(root)}:{line_number}: {label}")
+            location = str(path.relative_to(root))
+            if line_number:
+                location += f":{line_number}"
+            print(f"- {location}: {label}")
         return 1
 
     print(f"privacy scan passed: {sum(1 for _ in iter_text_files(root))} text file(s) checked")
