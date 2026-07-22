@@ -1,0 +1,4 @@
+interface:
+  display_name: "India ITR Filing"
+  short_description: "Prepare and review Indian ITR filing workflows"
+  default_prompt: "Use $india-itr-filing to classify my Indian ITR case, inventory my redacted records, and build a safe filing plan."

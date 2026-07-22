@@ -6,6 +6,8 @@ It offers three clear ways to start and composes only the workflows that apply. 
 
 It is designed for Claude Code, OpenAI Codex, Hermes Agent, Pi, and other tools that support the `SKILL.md` Agent Skills format.
 
+**Agent-ready origin:** [india-itr-filing-skill.pages.dev](https://india-itr-filing-skill.pages.dev/) publishes Markdown content negotiation, an agent-readable site map, and a digest-verifiable [Agent Skills discovery index](https://india-itr-filing-skill.pages.dev/.well-known/agent-skills/index.json).
+
 ## Start here
 
 Choose any entry path. You do not need to know your ITR form or schedule names.
@@ -56,6 +58,8 @@ Screenshots and portal prefill can identify what to investigate, but they do not
 
 ```text
 skills/india-itr-filing/
+├── agents/
+│   └── openai.yaml
 ├── SKILL.md
 ├── references/
 │   ├── document-intake-and-privacy.md
@@ -116,7 +120,14 @@ Restart or reload the agent after installation. Invoke `india-itr-filing`, or as
 ```bash
 python3 tests/validate_repository.py
 python3 tests/test_case_classifier.py
+python3 tests/test_agent_site.py
 python3 skills/india-itr-filing/scripts/privacy_scan.py .
+```
+
+Build the deployable discovery site with:
+
+```bash
+python3 scripts/build_agent_site.py
 ```
 
 The privacy scan accepts runtime deny-list values without placing them in the repository:

@@ -70,6 +70,15 @@ def main() -> int:
     if result.returncode:
         fail("synthetic classifier scenarios failed")
 
+    openai_yaml = SKILL / "agents" / "openai.yaml"
+    if not openai_yaml.exists() or "$india-itr-filing" not in openai_yaml.read_text():
+        fail("missing or invalid OpenAI skill interface metadata")
+
+    agent_site_test = ROOT / "tests" / "test_agent_site.py"
+    result = subprocess.run([sys.executable, str(agent_site_test)], check=False)
+    if result.returncode:
+        fail("agent discovery site validation failed")
+
     print("repository validation passed")
     return 0
 
