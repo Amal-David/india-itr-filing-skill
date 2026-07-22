@@ -2,14 +2,26 @@
 
 A privacy-safe Agent Skill that assists with preparing, reconciling, reviewing, and troubleshooting Indian individual income-tax returns.
 
-It starts with a short multi-select intake and composes only the workflows that apply. It supports simple salary returns as well as salary plus investments, freelance or professional income, section 44ADA candidates, investors, intraday/F&O traders, property, VDA, foreign assets, unlisted shares, tax credits, portal validations, and complex mixed cases.
+It offers three clear ways to start and composes only the workflows that apply. It supports simple salary returns as well as salary plus investments, freelance or professional income, section 44ADA candidates, investors, intraday/F&O traders, property, VDA, foreign assets, unlisted shares, tax credits, portal validations, and complex mixed cases.
 
 It is designed for Claude Code, OpenAI Codex, Hermes Agent, Pi, and other tools that support the `SKILL.md` Agent Skills format.
+
+## Start here
+
+Choose any entry path. You do not need to know your ITR form or schedule names.
+
+1. **Guided questions** — say: `Guide me through filing my Indian ITR.`
+2. **Known modes** — say: `I have salary, freelance income, and mutual-fund sales.`
+3. **Free-select from documents** — say: `Review these redacted tax documents, find what applies, and show supported optimization opportunities.`
+
+With the document path, the skill inventories the files, infers provisional routes, finds evidence gaps, and builds the form/regime/schedule navigation plan. It does not assume the file set is complete or optimize for a refund at the expense of accuracy.
 
 ## What it does
 
 - Classifies a taxpayer into a primary route plus applicable modifiers rather than forcing one persona.
+- Discovers likely routes from redacted source documents when the taxpayer does not know the categories.
 - Requests a tailored minimum evidence pack.
+- Reviews lawful, evidence-supported elections, claims, credits, and loss treatment without fabricating a refund.
 - Derives an ITR form, regime, and schedule hypothesis with an eligibility trace.
 - Reconciles source documents, prefill, tax credits, portal schedules, and the final preview.
 - Stops and recommends CA, tax-law, or RBI/FEMA review when the facts require it.
@@ -47,6 +59,7 @@ skills/india-itr-filing/
 ├── SKILL.md
 ├── references/
 │   ├── document-intake-and-privacy.md
+│   ├── document-led-discovery.md
 │   ├── form-and-regime.md
 │   ├── income-schedules.md
 │   ├── intake-and-routing.md

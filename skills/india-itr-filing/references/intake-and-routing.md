@@ -1,6 +1,33 @@
 # Intake and routing
 
-Use a multi-select intake. Modes are workflow routes, not legal taxpayer categories, and they can be combined.
+Let the taxpayer start without knowing an ITR form or tax schedule. Offer three entry paths and explain that all paths lead to the same evidence, reconciliation, portal-map, and preview-review workflow.
+
+## Entry paths
+
+### 1. Guided intake
+
+Use the short multi-select intake below. This is the default when no documents are attached and the taxpayer does not choose a path.
+
+### 2. Known-mode selection
+
+Let the taxpayer select every mode that sounds familiar:
+
+- salary or pension;
+- freelance, consulting, or professional income;
+- investor in shares, ETFs, or mutual funds;
+- intraday, F&O, commodity, or currency trader;
+- property owner, buyer, seller, landlord, tenant, or home-loan borrower;
+- VDA or crypto user;
+- foreign asset, account, income, signing authority, or unlisted-share holder;
+- prior losses, tax credits, late filing, notice, or unsure.
+
+Treat selections as routing hints, not tax conclusions. Combine modes and add all applicable modifiers.
+
+### 3. Free-select / document-led discovery
+
+Use this path when the taxpayer says “find what applies,” “review these files,” “optimize from my documents,” or does not know the categories. Inventory only redacted source records, infer provisional routes, and ask for missing scope facts. Follow [document-led-discovery.md](document-led-discovery.md).
+
+Do not infer residential status, filing status, property use or possession, relationship or gift treatment, securities basis, or trading classification solely from filenames, screenshots, AIS, or portal prefill.
 
 ## Short intake
 
@@ -28,6 +55,8 @@ Ask in plain language:
 7. Does any notice, audit question, missed deadline, foreign-tax claim, valuation, gift, or regulatory filing exist?
 
 An `unsure` answer is a request for evidence, not permission to assume `No`.
+
+For document-led discovery, ask only question 1, residential status, and any targeted gaps the documents cannot answer. Do not make the taxpayer repeat facts already supported by source records.
 
 ## Route composition
 

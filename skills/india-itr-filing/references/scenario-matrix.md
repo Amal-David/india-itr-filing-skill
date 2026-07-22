@@ -16,6 +16,10 @@ Use these scenarios to test routing and safety. They are synthetic and contain n
 | Home under construction with EMI | Property | Establish ownership, completion/possession, use, final certificate, and regime before any claim |
 | Prior trading loss remembered but no filed ITR | Trader + brought-forward loss | Block carry-forward claim until prior ITR, filing date, and schedule are obtained |
 | Portal validation succeeds but evidence differs | Complex composite | Preview reconciliation fails; do not submit |
+| Redacted files attached but taxpayer does not know categories | Document-led discovery | Confirm FY/AY, filing status, residency, and completeness; inventory first; infer provisional routes only |
+| Form 16 and broker report attached | Document-led discovery -> salary investor | Ask only for missing AIS/26AS and lot-level evidence; do not repeat supported intake questions |
+| AIS attached without source records | Document-led discovery + unknown transactions | Treat AIS as leads; produce a missing-document list; no final form or optimization conclusion |
+| Documents reveal a foreign holding | Foreign cross-border + document-led discovery | Stop ordinary optimization; obtain calendar-year values and specialist review |
 
 ## Cross-schedule invariants
 

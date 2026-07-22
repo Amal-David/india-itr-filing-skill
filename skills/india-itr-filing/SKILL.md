@@ -1,6 +1,6 @@
 ---
 name: india-itr-filing
-description: Assist with preparing, reconciling, reviewing, and troubleshooting Indian individual income-tax returns using an adaptive filer profile. Use for salary-only, salary plus investments, freelance or professional income, section 44ADA, investors, intraday or F&O traders, property, VDA, foreign assets, unlisted shares, tax credits, portal validation, and final preview review. Never conceal income, fabricate evidence, or perform the taxpayer's declaration, payment, submission, or verification.
+description: Assist with preparing, reconciling, reviewing, and troubleshooting Indian individual income-tax returns using guided intake, known filer modes, or document-led discovery. Use for finding applicable routes and lawful optimization opportunities from redacted records and for salary-only, salary plus investments, freelance or professional income, section 44ADA, investors, intraday or F&O traders, property, VDA, foreign assets, unlisted shares, tax credits, portal validation, and final preview review. Never conceal income, fabricate evidence, or perform the taxpayer's declaration, payment, submission, or verification.
 ---
 
 # India ITR Filing
@@ -20,11 +20,31 @@ The taxpayer remains responsible for facts, declarations, payment, verification,
 7. Keep the return in draft until the preview is reconciled to the evidence register and all material uncertainties are resolved.
 8. Escalate instead of guessing when facts, source records, law, tax classification, valuation, residency, or FEMA treatment are uncertain.
 
+## Start here: choose one way to begin
+
+Offer these three entry paths before asking the taxpayer to understand tax forms or schedules:
+
+1. **Guided intake** — ask the short multi-select questions and build the route from the answers.
+2. **Known-mode selection** — let the taxpayer select every familiar mode, such as salary, professional/freelance, investor, trader, property, VDA, or foreign holdings.
+3. **Free-select / document-led discovery** — inventory the taxpayer's redacted source documents, find likely income and disclosure routes, identify missing evidence, and run a lawful optimization review.
+
+If files are already attached and no path is chosen, default to document-led discovery. Otherwise default to guided intake. Never require the taxpayer to know the ITR form, schedule name, income head, or tax jargon before starting.
+
+Use this navigation map:
+
+```text
+Start -> profile or document discovery -> evidence gaps -> form/regime hypothesis
+      -> computation and reconciliation -> portal map -> preview review
+      -> taxpayer-controlled payment, declaration, submission, and verification
+```
+
+Read [intake-and-routing.md](references/intake-and-routing.md) for all three entry paths. For document-led discovery, also read [document-led-discovery.md](references/document-led-discovery.md) before interpreting files.
+
 ## Adaptive workflow
 
-### 1. Run the front-door intake
+### 1. Choose the entry path and classify the case
 
-Ask the short multi-select questionnaire in [intake-and-routing.md](references/intake-and-routing.md). Determine:
+Use the selected entry path to determine:
 
 - filing context: FY/AY, original/revised/belated/updated/notice-response return;
 - residential status and uncertainty;
@@ -55,7 +75,7 @@ Use the optional local classifier for a deterministic first pass:
 python3 scripts/classify_case.py case-profile.json
 ```
 
-The classifier is a routing aid, not a tax determination.
+The classifier is a routing aid, not a tax determination. Document-led discovery is also provisional: never treat an absent document as proof that an income, asset, transaction, loss, or disclosure does not exist.
 
 ### 2. Apply the risk and escalation gate
 
@@ -68,6 +88,8 @@ Mandatory professional review includes disputed or uncertain residency; audit or
 Use [document-intake-and-privacy.md](references/document-intake-and-privacy.md). Request only the documents needed for the selected routes and modifiers. Assign neutral document IDs such as `DOC-001`; do not copy original filenames, taxpayer identifiers, or private values into notes, examples, issues, commits, or public artifacts.
 
 Create an evidence register with one row per source: document ID, period, source type, tax fields derived, source locator, status, and unresolved questions.
+
+When using document-led discovery, add a coverage matrix showing the evidence found, inferred route, confidence, missing record, possible schedule, and lawful optimization check. Ask targeted questions only for facts that the documents cannot safely establish.
 
 ### 4. Derive form, regime, and schedule map
 
@@ -133,11 +155,12 @@ Then stop. The taxpayer personally reviews the preview and controls declaration,
 - State the AY and source behind any rule affecting tax or eligibility.
 - Separate supported facts from provisional calculations.
 - Say `do not submit yet` whenever a material item is unresolved.
-- Never call a result “optimized,” “eligible,” “complete,” or “correct” without identifying the evidence and assumptions supporting it.
+- Never call a result “optimized,” “eligible,” “complete,” or “correct” without identifying the evidence and assumptions supporting it. Describe optimization candidates as `supported`, `needs evidence`, `not available`, or `professional review required`.
 
 ## Reference routing
 
-- Adaptive questions, route composition, and document packs: [intake-and-routing.md](references/intake-and-routing.md)
+- Guided intake, known-mode selection, route composition, and entry defaults: [intake-and-routing.md](references/intake-and-routing.md)
+- Free-select document discovery, coverage matrix, and lawful optimization review: [document-led-discovery.md](references/document-led-discovery.md)
 - Minimum disclosure, evidence manifest, redaction, and retention: [document-intake-and-privacy.md](references/document-intake-and-privacy.md)
 - Specialist-review triggers and stop conditions: [risk-and-escalation.md](references/risk-and-escalation.md)
 - Form selection, regimes, Form 10-IEA, 44ADA, rent, home loan, and deductions: [form-and-regime.md](references/form-and-regime.md)

@@ -42,6 +42,11 @@ def main() -> int:
         "do not submit yet",
         "Form 10-IEA branch only after",
         "confirmed`, `prefilled-only`, `derived`, `unresolved`, `unknown`, or `blocked",
+        "Guided intake",
+        "Known-mode selection",
+        "Free-select / document-led discovery",
+        "never treat an absent document as proof",
+        "lawful optimization review",
     ]
     lowered_text = text.casefold()
     for guardrail in required_guardrails:
